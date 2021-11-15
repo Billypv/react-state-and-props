@@ -1,16 +1,24 @@
 import { useState } from 'react'
+import Todo from "./Todo.js"
 
 function TodoList() {
   const [todos, setTodos] = useState([])
-
+  const [value, setValue] = useState("")
+  function handleChange(eventArguament){
+    setValue(eventArguament.target.value)
+  }
+  function handleClick(){
+    setTodos([...todos,{name:value, done:false}])
+  }
   return (
     <section>
       <div>{todos.map((todo, index) =>
-        <h2 style={{ color: todo.done ? "green" : "red" }} key={`todo-${index}`}>{todo.name}</h2>
-      )}
+      <Todo todo={todo} key={`todo-${index}`}/>
+
+       )}
       </div>
-      <input placeholder="Add todo" />
-      <button>Add</button>
+      <input onChange ={handleChange} placeholder="Add todo" />
+      <button onClick={handleClick}>Add</button>
     </section>
   )
 }
